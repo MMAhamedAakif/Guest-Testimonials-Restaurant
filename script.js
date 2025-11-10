@@ -42,43 +42,7 @@ fadeInSections.forEach(section => {
     sectionObserver.observe(section);
 });
 
-const testimonialCards = document.querySelectorAll('.testimonial-card');
-const carouselDots = document.getElementById('carouselDots');
-let currentTestimonial = 0;
 
-testimonialCards.forEach((card, index) => {
-    const dot = document.createElement('div');
-    dot.classList.add('carousel-dot');
-    if (index === 0) {
-        dot.classList.add('active');
-    }
-    dot.addEventListener('click', () => {
-        showTestimonial(index);
-    });
-    carouselDots.appendChild(dot);
-});
-
-function showTestimonial(index) {
-    testimonialCards.forEach(card => {
-        card.classList.remove('active');
-    });
-
-    const dots = document.querySelectorAll('.carousel-dot');
-    dots.forEach(dot => {
-        dot.classList.remove('active');
-    });
-
-    testimonialCards[index].classList.add('active');
-    dots[index].classList.add('active');
-    currentTestimonial = index;
-}
-
-function nextTestimonial() {
-    currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
-    showTestimonial(currentTestimonial);
-}
-
-setInterval(nextTestimonial, 5000);
 
 const contactForm = document.getElementById('contactForm');
 
@@ -109,3 +73,39 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// Animate section titles and underlines on scroll
+const sectionTitles = document.querySelectorAll('.section-title');
+const titleUnderlines = document.querySelectorAll('.title-underline');
+const heroTitle = document.querySelector('.hero-title');
+
+const titleObserverOptions = {
+    threshold: 0.3,
+    rootMargin: '0px 0px -100px 0px'
+};
+
+const titleObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            // Also animate the underline that follows this title
+            const underline = entry.target.nextElementSibling;
+            if (underline && underline.classList.contains('title-underline')) {
+                underline.classList.add('visible');
+            }
+        }
+    });
+}, titleObserverOptions);
+
+// Observe all section titles
+sectionTitles.forEach(title => {
+    titleObserver.observe(title);
+});
+
+// Hero title animates on page load
+if (heroTitle) {
+    setTimeout(() => {
+        heroTitle.classList.add('visible');
+    }, 300);
+}
+
