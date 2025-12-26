@@ -109,3 +109,13 @@ if (heroTitle) {
     }, 300);
 }
 
+
+
+const signInBtn = document.getElementById("signInBtn");
+const signinContainer = document.getElementById("signin-container");
+const loginContainer = document.getElementById("login-container");
+
+signInBtn.addEventListener("click", () => {
+    signinContainer.classList.add("hidden");
+    loginContainer.classList.remove("hidden");
+});
