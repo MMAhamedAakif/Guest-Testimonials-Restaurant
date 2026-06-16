@@ -321,12 +321,34 @@ body {
     letter-spacing: 2px;
     transition: all 0.3s ease;
     box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+    position: relative;
+    will-change: transform, box-shadow;
+    /* subtle pulsing glow */
+    animation: cta-pulse 4s ease-in-out infinite;
 }
 
 .cta-button:hover {
     background-color: var(--light-gold);
     transform: translateY(-3px);
     box-shadow: 0 8px 30px rgba(212, 175, 55, 0.6);
+    /* pause pulse so hover effect feels crisp */
+    animation: none;
+}
+
+/* Keyframes for CTA pulsing glow */
+@keyframes cta-pulse {
+    0% {
+        transform: translateY(0);
+        box-shadow: 0 5px 20px rgba(212, 175, 55, 0.28);
+    }
+    50% {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 40px rgba(212, 175, 55, 0.45);
+    }
+    100% {
+        transform: translateY(0);
+        box-shadow: 0 5px 20px rgba(212, 175, 55, 0.28);
+    }
 }
 
 @keyframes fadeInUp {
